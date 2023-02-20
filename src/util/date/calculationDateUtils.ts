@@ -9,11 +9,30 @@ import {now} from "./dateUtils";
 export const fromNanosToMillis = (value: bigint): number => Math.floor(Number(value) / NANOS_IN_MILLIS)
 
 type DateHMS = {
+    /**
+     * Length of time: milliseconds part.
+     */
     milliseconds: number
+    /**
+     * Length of time: seconds part.
+     */
     seconds: number
+    /**
+     * Length of time: minutes part.
+     */
     minutes: number
+    /**
+     * Length of time: hours part.
+     */
     hours: number
+    /**
+     * Length of time: days part.
+     */
     days: number
+    /**
+     * Total number of milliseconds.
+     */
+    millisecondsTotal: number
 }
 /**
  * Calculate length of time in milliseconds and present it in a human-readable format.
@@ -34,6 +53,7 @@ export const getHMSFromMillis = (milliseconds: number): DateHMS => {
         minutes,
         seconds,
         milliseconds: millisecondsFromSeconds,
+        millisecondsTotal: milliseconds,
     }
 }
 
