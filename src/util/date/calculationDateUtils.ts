@@ -8,7 +8,7 @@ import {now} from "./dateUtils";
  */
 export const fromNanosToMillis = (value: bigint): number => Math.floor(Number(value) / NANOS_IN_MILLIS)
 
-type DateHMS = {
+export type DateHMS = {
     /**
      * Length of time: milliseconds part.
      */
