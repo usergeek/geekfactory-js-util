@@ -4,7 +4,7 @@
  * @return {number} The value in milliseconds.
  */
 export declare const fromNanosToMillis: (value: bigint) => number;
-type DateHMS = {
+export type DateHMS = {
     /**
      * Length of time: milliseconds part.
      */
@@ -85,4 +85,3 @@ export declare const isToday: (timeMillis: number) => boolean;
  * @see https://stackoverflow.com/questions/1091372/getting-the-clients-timezone-in-javascript
  */
 export declare const getLocalUTCTimezoneOffset: (date?: Date) => string;
-export {};
