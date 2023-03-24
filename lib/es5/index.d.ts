@@ -2,6 +2,7 @@ import { KeyValueStoreFacade } from "./store/KeyValueStoreFacade";
 export * from "./util/color/colorConstants";
 export * from "./util/compare/comparatorUtils";
 export * from "./util/currency/formatCurrencyUtils";
+export * from "./util/date/formatDateUtils";
 export * from "./util/date/calculationDateUtils";
 export * from "./util/date/dateConstants";
 export * from "./util/date/dateUtils";
