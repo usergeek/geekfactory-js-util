@@ -148,4 +148,4 @@ export type DateYMHMS = {
  * @param {number} timeStartMillis The start time in milliseconds.
  * @param {number} timeEndMillis The end time in milliseconds.
  */
-export declare const calculateDateYMHMS: (timeStartMillis: number, timeEndMillis: number) => DateYMHMS | undefined;
+export declare const calculateDateYMHMS: (timeStartMillis: number, timeEndMillis: number) => DateYMHMS;

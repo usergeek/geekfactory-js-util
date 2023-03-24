@@ -195,7 +195,7 @@ export type DateYMHMS = {
  * @param {number} timeStartMillis The start time in milliseconds.
  * @param {number} timeEndMillis The end time in milliseconds.
  */
-export const calculateDateYMHMS = (timeStartMillis: number, timeEndMillis: number): DateYMHMS | undefined => {
+export const calculateDateYMHMS = (timeStartMillis: number, timeEndMillis: number): DateYMHMS => {
     const endMoment = Moment(timeEndMillis);
     const startMoment = Moment(timeStartMillis);
 
