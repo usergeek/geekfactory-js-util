@@ -85,3 +85,67 @@ export declare const isToday: (timeMillis: number) => boolean;
  * @see https://stackoverflow.com/questions/1091372/getting-the-clients-timezone-in-javascript
  */
 export declare const getLocalUTCTimezoneOffset: (date?: Date) => string;
+export type DateYMHMS = {
+    /**
+     * Length of time: milliseconds part.
+     */
+    milliseconds: number;
+    /**
+     * Length of time: milliseconds total.
+     */
+    millisecondsTotal: number;
+    /**
+     * Length of time: seconds part.
+     */
+    seconds: number;
+    /**
+     * Length of time: seconds total.
+     */
+    secondsTotal: number;
+    /**
+     * Length of time: minutes part.
+     */
+    minutes: number;
+    /**
+     * Length of time: minutes total.
+     */
+    minutesTotal: number;
+    /**
+     * Length of time: hours part.
+     */
+    hours: number;
+    /**
+     * Length of time: hours total.
+     */
+    hoursTotal: number;
+    /**
+     * Length of time: days part.
+     */
+    days: number;
+    /**
+     * Length of time: how many days till full year.
+     */
+    daysToFullYear: number;
+    /**
+     * Length of time: days total.
+     */
+    daysTotal: number;
+    /**
+     * Length of time: months part.
+     */
+    months: number;
+    /**
+     * Length of time: months total.
+     */
+    monthsTotal: number;
+    /**
+     * Length of time: years part.
+     */
+    years: number;
+};
+/**
+ * Calculate the difference between two dates.
+ * @param {number} timeStartMillis The start time in milliseconds.
+ * @param {number} timeEndMillis The end time in milliseconds.
+ */
+export declare const calculateDateYMHMS: (timeStartMillis: number, timeEndMillis: number) => DateYMHMS | undefined;

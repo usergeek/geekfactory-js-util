@@ -79,3 +79,73 @@ export const OneAtATimePromiseFacade = (() => {
         create: create
     }
 })()
+
+/**
+ * Method runs promises in parallel.
+ * @param {Array<() => Promise<T>>} promises array of promise factories.
+ * @param {number} parallel number of promises to run in parallel.
+ * @returns {Promise<Array<PromiseSettledResult<T>>>} promise that resolves to an array of promise settled results.
+ */
+export const promiseAllSettledParallel = <T>(promises: Array<() => Promise<T>>, parallel: number): Promise<Array<PromiseSettledResult<T>>> => {
+    return new Promise((resolve, reject) => {
+        const results: Array<PromiseSettledResult<T>> = [];
+        let promisesInProgress = 0;
+        let promiseIndex = 0;
+        const runNextPromise = () => {
+            if (promiseIndex >= promises.length) {
+                if (promisesInProgress === 0) {
+                    resolve(results)
+                }
+                return;
+            }
+            const promiseFactory = promises[promiseIndex];
+            promiseIndex++;
+            promisesInProgress++;
+            promiseFactory().then((result) => {
+                results.push({status: "fulfilled", value: result})
+                promisesInProgress--;
+                runNextPromise();
+            }).catch((error) => {
+                results.push({status: "rejected", reason: error})
+                promisesInProgress--;
+                runNextPromise();
+            })
+        }
+        for (let i = 0; i < parallel; i++) {
+            runNextPromise();
+        }
+    })
+}
+
+/**
+ * Method runs promises in parallel.
+ * @param {Array<() => Promise<T>>} promises array of promise factories.
+ * @param {number} parallel number of promises to run in parallel.
+ * @returns {Promise<Array<T>>} promise that resolves to an array of promise results or rejects if any promise rejects.
+ */
+export const promiseAllParallel = <T>(promises: Array<() => Promise<T>>, parallel: number): Promise<Array<T>> => {
+    return new Promise((resolve, reject) => {
+        const results: Array<T> = [];
+        let promisesInProgress = 0;
+        let promiseIndex = 0;
+        const runNextPromise = () => {
+            if (promiseIndex >= promises.length) {
+                if (promisesInProgress === 0) {
+                    resolve(results)
+                }
+                return;
+            }
+            const promiseFactory = promises[promiseIndex];
+            promiseIndex++;
+            promisesInProgress++;
+            promiseFactory().then((result) => {
+                results.push(result)
+                promisesInProgress--;
+                runNextPromise();
+            }).catch(reject)
+        }
+        for (let i = 0; i < parallel; i++) {
+            runNextPromise();
+        }
+    })
+}

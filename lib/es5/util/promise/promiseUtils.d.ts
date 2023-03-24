@@ -32,4 +32,18 @@ export declare const OneAtATimePromiseFacade: {
         oneAtATimePromise: <T>(promiseFactory: () => Promise<T>, ctx: string) => Promise<T>;
     };
 };
+/**
+ * Method runs promises in parallel.
+ * @param {Array<() => Promise<T>>} promises array of promise factories.
+ * @param {number} parallel number of promises to run in parallel.
+ * @returns {Promise<Array<PromiseSettledResult<T>>>} promise that resolves to an array of promise settled results.
+ */
+export declare const promiseAllSettledParallel: <T>(promises: (() => Promise<T>)[], parallel: number) => Promise<PromiseSettledResult<T>[]>;
+/**
+ * Method runs promises in parallel.
+ * @param {Array<() => Promise<T>>} promises array of promise factories.
+ * @param {number} parallel number of promises to run in parallel.
+ * @returns {Promise<Array<T>>} promise that resolves to an array of promise results or rejects if any promise rejects.
+ */
+export declare const promiseAllParallel: <T>(promises: (() => Promise<T>)[], parallel: number) => Promise<T[]>;
 export {};

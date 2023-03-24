@@ -1,5 +1,6 @@
 import {DAY_MILLIS, NANOS_IN_MILLIS} from "./dateConstants";
 import {now} from "./dateUtils";
+import Moment from "moment-timezone";
 
 /**
  * Convert nanoseconds to milliseconds.
@@ -125,3 +126,136 @@ export const getLocalUTCTimezoneOffset = (date: Date = new Date()): string => {
     const minutes = (Math.abs(offset) % 60).toString().padStart(2, '0');
     return `${sign}${hours}:${minutes}`;
 };
+
+////////////////////////////////////////////////
+// Date YMHMS
+////////////////////////////////////////////////
+
+export type DateYMHMS = {
+    /**
+     * Length of time: milliseconds part.
+     */
+    milliseconds: number
+    /**
+     * Length of time: milliseconds total.
+     */
+    millisecondsTotal: number
+    /**
+     * Length of time: seconds part.
+     */
+    seconds: number
+    /**
+     * Length of time: seconds total.
+     */
+    secondsTotal: number
+    /**
+     * Length of time: minutes part.
+     */
+    minutes: number
+    /**
+     * Length of time: minutes total.
+     */
+    minutesTotal: number
+    /**
+     * Length of time: hours part.
+     */
+    hours: number
+    /**
+     * Length of time: hours total.
+     */
+    hoursTotal: number
+    /**
+     * Length of time: days part.
+     */
+    days: number
+    /**
+     * Length of time: how many days till full year.
+     */
+    daysToFullYear: number
+    /**
+     * Length of time: days total.
+     */
+    daysTotal: number
+    /**
+     * Length of time: months part.
+     */
+    months: number
+    /**
+     * Length of time: months total.
+     */
+    monthsTotal: number
+    /**
+     * Length of time: years part.
+     */
+    years: number
+}
+
+/**
+ * Calculate the difference between two dates.
+ * @param {number} timeStartMillis The start time in milliseconds.
+ * @param {number} timeEndMillis The end time in milliseconds.
+ */
+export const calculateDateYMHMS = (timeStartMillis: number, timeEndMillis: number): DateYMHMS | undefined => {
+    const endMoment = Moment(timeEndMillis);
+    const startMoment = Moment(timeStartMillis);
+
+    const precise: boolean = false
+
+    const millisecondsTotal = timeEndMillis - timeStartMillis
+    const years = endMoment.diff(startMoment, "years", precise)
+    const monthsTotal = endMoment.diff(startMoment, "months", precise)
+
+    const daysTotal = endMoment.diff(startMoment, "days", precise)
+    const hoursTotal = endMoment.diff(startMoment, "hours", precise)
+    const minutesTotal = endMoment.diff(startMoment, "minutes", precise)
+    const secondsTotal = endMoment.diff(startMoment, "seconds", precise)
+
+    if (Math.abs(years) > 0) {
+        endMoment.subtract(years, "years")
+    }
+    const daysToFullYear = endMoment.diff(startMoment, "days", precise)
+
+    const months = endMoment.diff(startMoment, "months", precise)
+    if (Math.abs(months) > 0) {
+        endMoment.subtract(months, "months")
+    }
+
+    const days = endMoment.diff(startMoment, "days", precise)
+    if (Math.abs(days) > 0) {
+        endMoment.subtract(days, "days")
+    }
+
+    const hours = endMoment.diff(startMoment, "hours", precise)
+    if (Math.abs(hours) > 0) {
+        endMoment.subtract(hours, "hours")
+    }
+
+    const minutes = endMoment.diff(startMoment, "minutes", precise)
+    if (Math.abs(minutes) > 0) {
+        endMoment.subtract(minutes, "minutes")
+    }
+
+    const seconds = endMoment.diff(startMoment, "seconds", precise)
+    if (Math.abs(seconds) > 0) {
+        endMoment.subtract(seconds, "seconds")
+    }
+
+    const milliseconds = endMoment.diff(startMoment, "milliseconds", precise)
+
+    return {
+        milliseconds,
+        millisecondsTotal,
+        seconds,
+        secondsTotal,
+        minutes,
+        minutesTotal,
+        hours,
+        hoursTotal,
+        days,
+        daysToFullYear,
+        daysTotal,
+        months,
+        monthsTotal,
+        years,
+    }
+}

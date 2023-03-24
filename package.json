@@ -1,6 +1,6 @@
 {
   "name": "geekfactory-js-util",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Javascript utils by GeekFactory",
   "main": "./lib/es5/index.js",
   "author": "GeekFactory <support@usergeek.com>",
@@ -19,6 +19,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "moment-timezone": "^0.5.42",
     "reuse-promise": "^2.0.0"
   },
   "devDependencies": {
@@ -39,7 +40,6 @@
     "moduleNameMapper": {
       "^src/(.*)$": "<rootDir>/src/$1"
     },
-    "transformIgnorePatterns": [
-    ]
+    "transformIgnorePatterns": []
   }
 }
