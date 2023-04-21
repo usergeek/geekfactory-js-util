@@ -1,3 +1,4 @@
+import Moment from "moment-timezone";
 /**
  * Convert nanoseconds to milliseconds.
  * @param value The value in nanoseconds.
@@ -149,3 +150,16 @@ export type DateYMHMS = {
  * @param {number} timeEndMillis The end time in milliseconds.
  */
 export declare const calculateDateYMHMS: (timeStartMillis: number, timeEndMillis: number) => DateYMHMS;
+/**
+ * Returns the Moment object representing the time corresponding to the given time in milliseconds.
+ * @param timeMillis
+ */
+export declare const getMomentFromMillis: (timeMillis: number) => Moment.Moment;
+/**
+ * Returns the Moment object representing the current time.
+ */
+export declare const getMomentFromCurrentTime: () => Moment.Moment;
+/**
+ * Returns the Moment object representing the end of the day containing the current time (end of the today).
+ */
+export declare const getMomentFromCurrentEndOfDay: () => Moment.Moment;

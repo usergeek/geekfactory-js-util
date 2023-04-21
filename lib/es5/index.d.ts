@@ -6,6 +6,7 @@ export * from "./util/date/formatDateUtils";
 export * from "./util/date/calculationDateUtils";
 export * from "./util/date/dateConstants";
 export * from "./util/date/dateUtils";
+export * from "./util/dom/domUtils";
 export * from "./util/json/jsonUtils";
 export * from "./util/memory/formatMemoryUtils";
 export * from "./util/memory/memoryConstants";

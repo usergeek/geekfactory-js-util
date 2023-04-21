@@ -149,3 +149,42 @@ export const promiseAllParallel = <T>(promises: Array<() => Promise<T>>, paralle
         }
     })
 }
+
+////////////////////////////////////////////////
+// Promise Executor
+////////////////////////////////////////////////
+
+type PromiseExecutor<T> = () => Promise<T>;
+
+class PromisePool<T> {
+    private activePromises: Promise<T>[] = [];
+
+    constructor(private readonly limit: number) {}
+
+    execute(promise: PromiseExecutor<T>): Promise<T> {
+        const activePromiseCount = this.activePromises.length;
+        if (activePromiseCount >= this.limit) {
+            return Promise.race(this.activePromises).then(() => this.execute(promise));
+        }
+
+        const newPromise = promise();
+        this.activePromises.push(newPromise);
+
+        newPromise.finally(() => {
+            const index = this.activePromises.indexOf(newPromise);
+            if (index !== -1) {
+                this.activePromises.splice(index, 1);
+            }
+        });
+
+        return newPromise;
+    }
+}
+
+export function createParallelExecutor<T>(parallelLimit: number): (promise: PromiseExecutor<T>) => Promise<T> {
+    const pool = new PromisePool<T>(parallelLimit);
+
+    return function executeParallel(promise: PromiseExecutor<T>): Promise<T> {
+        return pool.execute(promise);
+    };
+}

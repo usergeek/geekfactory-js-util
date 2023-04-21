@@ -53,3 +53,36 @@ export const booleanComparator = (a: boolean, b: boolean) => {
     }
     return a ? 1 : -1;
 }
+
+////////////////////////////////////////////////
+// Nested fields
+////////////////////////////////////////////////
+
+export interface NestedPropertiesSortingOptions<T> {
+    property: keyof T | ((value: T) => any)
+    order?: "asc" | "desc"
+}
+
+export function sortByNestedProperties<T>(arr: T[], sortingOptions: NestedPropertiesSortingOptions<T>[]): T[] {
+    const sortingFunctions = sortingOptions.map(({property, order}) => {
+        const sortOrder = order === "desc" ? -1 : 1;
+        return (a: T, b: T) => {
+            const aValue = typeof property === "function" ? property(a) : a[property];
+            const bValue = typeof property === "function" ? property(b) : b[property];
+            if (aValue === bValue) {
+                return 0;
+            }
+            return sortOrder * (aValue < bValue ? -1 : 1);
+        };
+    });
+    return arr.sort((a: T, b: T) => {
+        let result = 0;
+        for (const sortingFunction of sortingFunctions) {
+            result = sortingFunction(a, b);
+            if (result !== 0) {
+                break;
+            }
+        }
+        return result;
+    });
+}

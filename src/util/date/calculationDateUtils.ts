@@ -259,3 +259,23 @@ export const calculateDateYMHMS = (timeStartMillis: number, timeEndMillis: numbe
         years,
     }
 }
+
+////////////////////////////////////////////////
+// Moment
+////////////////////////////////////////////////
+
+/**
+ * Returns the Moment object representing the time corresponding to the given time in milliseconds.
+ * @param timeMillis
+ */
+export const getMomentFromMillis = (timeMillis: number): Moment.Moment => Moment(timeMillis)
+
+/**
+ * Returns the Moment object representing the current time.
+ */
+export const getMomentFromCurrentTime = (): Moment.Moment => Moment()
+
+/**
+ * Returns the Moment object representing the end of the day containing the current time (end of the today).
+ */
+export const getMomentFromCurrentEndOfDay = (): Moment.Moment => getMomentFromCurrentTime().endOf('day')

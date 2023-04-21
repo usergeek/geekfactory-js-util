@@ -1,6 +1,6 @@
 {
   "name": "geekfactory-js-util",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Javascript utils by GeekFactory",
   "main": "./lib/es5/index.js",
   "author": "GeekFactory <support@usergeek.com>",

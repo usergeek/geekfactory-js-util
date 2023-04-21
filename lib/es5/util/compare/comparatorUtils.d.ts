@@ -15,3 +15,8 @@ export declare const antdTableSorterWithNumberInTheBeginning: (a: number | undef
  */
 export declare const numberComparatorWithNumberInTheBeginning: (a: number | undefined | bigint, b: number | undefined | bigint, order: "ascend" | "descend" | null | undefined) => 0 | 1 | -1;
 export declare const booleanComparator: (a: boolean, b: boolean) => 0 | 1 | -1;
+export interface NestedPropertiesSortingOptions<T> {
+    property: keyof T | ((value: T) => any);
+    order?: "asc" | "desc";
+}
+export declare function sortByNestedProperties<T>(arr: T[], sortingOptions: NestedPropertiesSortingOptions<T>[]): T[];

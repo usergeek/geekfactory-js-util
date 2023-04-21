@@ -46,4 +46,6 @@ export declare const promiseAllSettledParallel: <T>(promises: (() => Promise<T>)
  * @returns {Promise<Array<T>>} promise that resolves to an array of promise results or rejects if any promise rejects.
  */
 export declare const promiseAllParallel: <T>(promises: (() => Promise<T>)[], parallel: number) => Promise<T[]>;
+type PromiseExecutor<T> = () => Promise<T>;
+export declare function createParallelExecutor<T>(parallelLimit: number): (promise: PromiseExecutor<T>) => Promise<T>;
 export {};
