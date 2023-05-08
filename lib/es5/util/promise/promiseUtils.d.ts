@@ -48,4 +48,11 @@ export declare const promiseAllSettledParallel: <T>(promises: (() => Promise<T>)
 export declare const promiseAllParallel: <T>(promises: (() => Promise<T>)[], parallel: number) => Promise<T[]>;
 type PromiseExecutor<T> = () => Promise<T>;
 export declare function createParallelExecutor<T>(parallelLimit: number): (promise: PromiseExecutor<T>) => Promise<T>;
+/**
+ * @param {Promise<T>} promise Promise to wrap.
+ * @param {number} timeoutMillis Timeout in milliseconds.
+ * @param {any} reason Optional reason to reject the promise with if the given promise does not resolve within the given timeout.
+ * @return {Promise<T>} Promise that resolves with the result of the given promise or rejects with the given (optional) reason if the given promise does not resolve within the given timeout.
+ */
+export declare const promiseWithTimeout: <T>(promise: Promise<T>, timeoutMillis: number, reason?: any) => Promise<T>;
 export {};

@@ -159,7 +159,8 @@ type PromiseExecutor<T> = () => Promise<T>;
 class PromisePool<T> {
     private activePromises: Promise<T>[] = [];
 
-    constructor(private readonly limit: number) {}
+    constructor(private readonly limit: number) {
+    }
 
     execute(promise: PromiseExecutor<T>): Promise<T> {
         const activePromiseCount = this.activePromises.length;
@@ -188,3 +189,17 @@ export function createParallelExecutor<T>(parallelLimit: number): (promise: Prom
         return pool.execute(promise);
     };
 }
+
+/**
+ * @param {Promise<T>} promise Promise to wrap.
+ * @param {number} timeoutMillis Timeout in milliseconds.
+ * @param {any} reason Optional reason to reject the promise with if the given promise does not resolve within the given timeout.
+ * @return {Promise<T>} Promise that resolves with the result of the given promise or rejects with the given (optional) reason if the given promise does not resolve within the given timeout.
+ */
+export const promiseWithTimeout = <T>(promise: Promise<T>, timeoutMillis: number, reason?: any): Promise<T> => {
+    const timeout = new Promise<T>((resolve, reject) => setTimeout(() => reject(reason || new Error(`Promise timed out after ${timeoutMillis}ms`)), timeoutMillis));
+    return Promise.race([
+        promise,
+        timeout
+    ]);
+};
