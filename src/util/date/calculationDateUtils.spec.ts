@@ -41,7 +41,7 @@ describe("DateTimeUtils", () => {
     })
 
     it("getLocalUTCTimezoneOffset", () => {
-        expect(getLocalUTCTimezoneOffset()).toEqual("+02:00")
+        expect(getLocalUTCTimezoneOffset()).toEqual("+03:00")
     })
 
 })

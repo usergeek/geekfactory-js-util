@@ -1,5 +1,7 @@
 import {KeyValueStoreFacade} from "./store/KeyValueStoreFacade";
 
+export * from "./error/gfError";
+export * from "./feature/feature";
 export * from "./util/color/colorConstants";
 export * from "./util/compare/comparatorUtils";
 export * from "./util/currency/formatCurrencyUtils";

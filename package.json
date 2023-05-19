@@ -1,6 +1,6 @@
 {
   "name": "geekfactory-js-util",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Javascript utils by GeekFactory",
   "main": "./lib/es5/index.js",
   "author": "GeekFactory <support@usergeek.com>",
@@ -19,6 +19,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@types/lodash": "^4.14.194",
+    "lodash": "^4.17.21",
     "moment-timezone": "^0.5.42",
     "reuse-promise": "^2.0.0"
   },
