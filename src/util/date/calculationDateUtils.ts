@@ -108,6 +108,26 @@ export const getStartOfDayMillisecondsByShiftFromToday = (shift: number): number
 }
 
 /**
+ * Transform time in milliseconds to the closest granularity in the past or future. E.g. get closest 5 minutes interval time in the past.
+ * @param timeMillis time to transform
+ * @param granularityMilliseconds granularity in milliseconds
+ * @param direction direction to transform.
+ * @return {number} time in milliseconds.
+ * @example transformTimeMillisToClosestGranularity(1623345721000, 5 * 60 * 1000, "past") => 1623345600000
+ * @example transformTimeMillisToClosestGranularity(1623345721000, 5 * 60 * 1000, "future") => 1623345900000
+ */
+export const transformTimeMillisToClosestGranularity = (timeMillis: number, granularityMilliseconds: number, direction: "past" | "future" = "past"): number => {
+    const millisecondsFromStartOfDay = getMillisecondsFromStartOfDay(timeMillis)
+    const metricIntervalIndex = Math.floor(millisecondsFromStartOfDay / granularityMilliseconds)
+    const startOfTheDayMillis = timeMillis - millisecondsFromStartOfDay;
+    if (direction === "past") {
+        return startOfTheDayMillis + metricIntervalIndex * granularityMilliseconds
+    } else {
+        return startOfTheDayMillis + (metricIntervalIndex + 1) * granularityMilliseconds
+    }
+}
+
+/**
  * Check if the time is today.
  * @param timeMillis The time in milliseconds.
  */
